@@ -7,8 +7,8 @@ var maxRunningChars = 400;
 
 var fontSize = 20;
 var alphaMask = 0.1;
-var vNum;
-var hNum;
+var gridHorizontal;
+var gridVertical;
 
 function getRandomHexChar() {
     let possibleChars = "0123456789ABCDEF";
@@ -19,8 +19,8 @@ function initCanvas(stage) {
     stage.width = wi;
     stage.height = hi;
     
-    vNum = Math.floor(wi/(fontSize-6));
-    hNum = Math.floor(hi/(fontSize));
+    gridHorizontal = Math.floor(wi/(fontSize-6));
+    gridVertical = Math.floor(hi/(fontSize));
 
     context.fillStyle="#000000";
     context.fillRect(0, 0, wi, hi);
@@ -28,7 +28,7 @@ function initCanvas(stage) {
 
 function initChar() {
     var char = {
-        x: (Math.floor(Math.random()*vNum)),
+        x: (Math.floor(Math.random()*gridHorizontal)),
         y: 0,
         tickTime: Math.random()*50+50,
         lastTick: performance.now(),
@@ -63,7 +63,7 @@ function render(time) {
     var iOut = 0;
     for ( var i = 0; i < chars.length; i++ ) {
         var c = chars[i];
-        if ( c.y < hNum ) { // If Char is still visible
+        if ( c.y < gridVertical ) { // If Char is still visible
             chars[iOut++] = c; // put it further-up in the array
 
             // Add a bit more random brightness to the char
